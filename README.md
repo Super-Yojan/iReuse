@@ -1,17 +1,14 @@
 # iReuse
 
-A webapp that let's you upload a picture of things that you don't use or want to 
-throw away, and gives you a lit of things that you can do with it, and if you don't find
-anything useful, give it to people who wants it. 
+*This is a web app that lets you upload a picture of an item that you don't use or throw away, and gives you a list of things that you can do with it. If you don't find anything useful, you will be able to give it to another person who wants it, allowing for less waste and making Earth a Better place.
 
-This will help lower the waste and make Earth a Better place.
+*This will help lower the waste and make Earth a Better place.
 
 ---
 
 # How it works?
 
-* It works using a image classifier that takes in a picture that you upload and 
-and returns what the image is.
+* It works using a image classifier that takes in a picture that you upload and then it will retun what the image is.
 * There's a crawler that crawls the internet to find ways to reuse old items, and indexes it based on the time, and money it takes to reuse it.
 * Then it displays the result to the user based on that weight.
 

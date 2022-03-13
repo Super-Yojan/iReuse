@@ -1,4 +1,4 @@
-# Crawler
+# Scraper
 
 * Will start from one DIY website and takes in it's link stores it in a variable, searches for nouns.
 * If it finds good nouns it will be added on to the database, with it's url

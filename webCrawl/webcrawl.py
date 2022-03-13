@@ -24,7 +24,7 @@ cursor = db.cursor()
 
 
 # get the URL to crawl
-url = "https://diyprojects.com/"
+url = "https://www.onegreenplanet.org/lifestyle/home-items-you-can-reuse-over-and-over-again/"
 
 
 def get_db_name(url):

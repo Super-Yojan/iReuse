@@ -8,56 +8,33 @@ from tensorflow.keras.applications.vgg16 import VGG16
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 
-local_zip = '/tmp/cats_and_dogs_filtered.zip'
-zip_ref = zipfile.ZipFile(local_zip, 'r')
-zip_ref.extractall('/tmp')
-zip_ref.close()
-
-base_dir = '/tmp/cats_and_dogs_filtered'
+base_dir = 'datasets'
 train_dir = os.path.join(base_dir, 'train')
 validation_dir = os.path.join(base_dir, 'validation')
 
-# Directory with our training cat pictures
-train_cats_dir = os.path.join(train_dir, 'cats')
+# Directory with our training bags pictures
+train_bags_dir = os.path.join(train_dir, 'bags')
 
 # Directory with our training dog pictures
-train_dogs_dir = os.path.join(train_dir, 'dogs')
+train_cups_dir= os.path.join(train_dir, 'cups')
 
-# Directory with our validation cat pictures
-validation_cats_dir = os.path.join(validation_dir, 'cats')
+train_mugs_dir = os.path.join(train_dir, 'mugs')
 
-# Directory with our validation dog pictures
-validation_dogs_dir = os.path.join(validation_dir, 'dogs')
+train_jars_dir = os.path.join(train_dir, 'jars')
 
+train_beedsheets_dir = os.path.join(train_dir, 'bedsheets')
 
-nrows = 4
-ncols = 4
+# Directory with our validationing bags pictures
+validation_bags_dir = os.path.join(validation_dir, 'bags')
 
-fig = plt.gcf()
-fig.set_size_inches(ncols*4, nrows*4)
-pic_index = 100
-train_cat_fnames = os.listdir( train_cats_dir )
-train_dog_fnames = os.listdir( train_dogs_dir )
+# Directory with our validationing dog pictures
+validation_cups_dir= os.path.join(validation_dir, 'cups')
 
+validation_mugs_dir = os.path.join(validation_dir, 'mugs')
 
-next_cat_pix = [os.path.join(train_cats_dir, fname) 
-                for fname in train_cat_fnames[ pic_index-8:pic_index] 
-               ]
+validation_jars_dir = os.path.join(validation_dir, 'jars')
 
-next_dog_pix = [os.path.join(train_dogs_dir, fname) 
-                for fname in train_dog_fnames[ pic_index-8:pic_index]
-               ]
-
-for i, img_path in enumerate(next_cat_pix+next_dog_pix):
-  # Set up subplot; subplot indices start at 1
-  sp = plt.subplot(nrows, ncols, i + 1)
-  sp.axis('Off') # Don't show axes (or gridlines)
-
-  img = mpimg.imread(img_path)
-  plt.imshow(img)
-
-plt.show()
-
+validation_beedsheets_dir = os.path.join(validation_dir, 'bedsheets')
 
 
 # Add our data-augmentation parameters to ImageDataGenerator
@@ -68,10 +45,10 @@ test_datagen = ImageDataGenerator( rescale = 1.0/255. )
 
 
 # Flow training images in batches of 20 using train_datagen generator
-train_generator = train_datagen.flow_from_directory(train_dir, batch_size = 20, class_mode = 'binary', target_size = (224, 224))
+train_generator = train_datagen.flow_from_directory(train_dir, batch_size = 20, class_mode = 'categorical_crossentropy', target_size = (224, 224))
 
 # Flow validation images in batches of 20 using test_datagen generator
-validation_generator = test_datagen.flow_from_directory( validation_dir,  batch_size = 20, class_mode = 'binary', target_size = (224, 224))
+validation_generator = test_datagen.flow_from_directory( validation_dir,  batch_size = 20, class_mode = 'categorical_crossentropy', target_size = (224, 224))
 
 
 
@@ -100,10 +77,17 @@ model = tf.keras.models.Model(base_model.input, x)
 model.compile(optimizer = tf.keras.optimizers.RMSprop(lr=0.0001), loss = 'binary_crossentropy',metrics = ['acc'])
 
 
-vgghist = model.fit(train_generator, validation_data = validation_generator, steps_per_epoch = 100, epochs = 5)
+vgghist = model.fit(train_generator, validation_data = validation_generator, steps_per_epoch = 100, epochs = 10)
+
+# Saving the model
+model_json = model.to_json()
+with open("model.json", "w") as json_file:
+	json_file.write(model_json)
 
 
-model_json = model.save('test.model')
+model.save_weights('model.h5')
+model.save('test.model')
+
 
 print(vgghist.history.keys())
 

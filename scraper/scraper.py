@@ -22,6 +22,7 @@ def scraper(url):
     temp = soup.find_all("p")
     commonObjects = {'clamp', 'shampoo', 'glow', 'dresses', 'balloon', 'buckle', 'stick', 'teddies', 'pot', 'fork', 'street', 'flag', 'liner', 'video', 'tooth', 'soda', 'sketch', 'magnet', 'band', 'milk', 'seat', 'white', 'helmet', 'puddle', 'mp3', 'beef', 'vase', 'lip', 'fake', 'shovel', 'remote', 'pencil', 'peanuts', 'picture', 'doll', 'cat', 'sponge', 'tote', 'drive', 'pants', 'packing', 'apple', 'hanger', 'bookmark', 'file', 'speakers', 'eraser', 'television', 'checkbook', 'phone', 'playing', 'clothes', 'pillow', 'chair', 'blouse', 'credit', 'clock', 'air', 'watch', 'clay', 'cinder', 'cork', 'press', 'bowl', 'flowers', 'containers', 'container', 'toe', 'drawer', 'coasters', 'blanket', 'spoon', 'CD', 'screw', 'house', 'plastic', 'truck', 'newspaper', 'wrapper', 'sandal', 'needle', 'album', 'tray', 'shoe', 'clippers', 'sand', 'thermometer', 'nail', 'socks', 'wallet', 'plate', 'sun', 'rubber', 'window', 'block', 'charger', 'car', 'desk', 'cup', 'tie', 'freshener', 'basket', 'tape', 'slipper', 'brocolli', 'sauce', 'chain', 'door', 'cups', 'cell', 'key', 'pots', 'shirt', 'ice', 'greeting', 'food', 'computer', 'toilet', 'soap', 'games', 'shade', 'pen', 'lights', 'USB', 'tissue', 'ipod', 'packet', 'tv', 'warmers', 'rusty', 'lamp', 'table', 'soy', 'wagon', 'player', 'carrots', 'bow', 'note', 'sidewalk', 'model', 'towel', 'water', 'twezzers', 'piano', 'lace', 'scotch', 'thread', 'keys', 'bottle', 'tire', 'knife', 'monitor', 'chocolate', 'belt', 'stop', 'keyboard', 'grid', 'fridge', 'cans', 'shawl', 'box', 'perfume', 'bananas', 'spring', 'sofa', 'swing', 'rugs', 'zipper', 'toothbrush', 'money', 'boom', 'ring', 'leg', 'washing', 'book', 'candle', 'cap', 'bracelet', 'face', 'tomato', 'lotion', 'shoes', 'purse', 'button', 'eye', 'picks', 'twister', 'cube', 'brush', 'mop', 'sticky', 'rug', 'chapter',
                      'can', 'jewlery', 'envelope', 'machine', 'totes', 'gloss', 'hair', 'tablet', 'radio', 'wash', 'candy', 'deodorant', 'stockings', 'headphones', 'drill', 'duck', 'floor', 'furniture', 'jar', 'thermostat', 'bag', 'sign', 'conditioner', 'glass', 'couch', 'bed', 'pad', 'controller', 'canvas', 'sailboat', 'cookie', 'outlet', 'mouse', 'paint', 'sharpie', 'frame', 'toothpaste', 'photo', 'mirror', 'pool', 'camera', 'paper', 'bread', 'chalk', 'card', 'tree', 'glasses', 'jugs'}
+    
     data1 = dict()
     # check if <p> is in website
     if temp != "":
@@ -36,7 +37,12 @@ def scraper(url):
                         obj in str(paragraph)
                         # checks to see if common object is in the paragraph
                         if obj in str(paragraph):
-                            data1[obj] = [url, paragraph]
+                            if obj not in data1.keys():
+                                data1[obj] = [[url, paragraph]]
+                            else:
+                                temp = data1[obj]
+                                temp.append([url, paragraph])
+                                data1[obj] = temp
     else:
         return False
     return data1

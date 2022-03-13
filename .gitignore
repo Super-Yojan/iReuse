@@ -2,4 +2,5 @@
 */CNN.model/*
 */model.h5/*
 */*.pickle
-
+*/venv/*
+*/webcrawl/*

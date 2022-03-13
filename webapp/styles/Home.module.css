@@ -2,23 +2,31 @@
     justify-content: center;
     align-items: center;
     display: flex;
+    padding-bottom: 1.25em;
+    padding-top: 1.25em;
+    font-size: 60px;
 }
 
 .h2 {
     justify-content: center;
     align-items: center;
     display: flex;
+    padding-bottom: 1.25em;
+    padding-top: 1.25em;
     font-size: 25px;
 }
 
-/* .iframe {
-    justify-content: center;
-    align-items: center;
-    display: flex;
-} */
-
 .grid {
+    padding-top: 1.25em;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.button_grid {
+    padding-top: 1.25em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    size: 30x;
 }

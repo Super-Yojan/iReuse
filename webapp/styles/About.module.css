@@ -1,10 +1,32 @@
+
 .banner{
-    display: flex;
-    background-color: #BD93F9;
-    height:50vh;
-    width:100vw;
-    font-size: 50px;
     justify-content: center;
     align-items: center;
+    display: flex;
+    background-color: #BD93F9;
+    height: 50vh;
+    width: 100vw;
+    font-size: 50px;
+    padding-top: .25em !important;
+    padding-bottom: 1em !important;
     color: white;
+    flex-direction: column;
+}
+
+.para {
+    display: flex;
+    font-size: 18px;
+    align-items: center;
+    color: black;
+    padding: 4em 7em;
+    text-align: center;
+}
+
+.h1 {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding-top: 0em;
+    padding-bottom: 1.25em;
+    font-size: 0px;
 }

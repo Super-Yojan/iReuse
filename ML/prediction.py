@@ -9,8 +9,7 @@ CORS(app)
 UPLOAD_FOLDER = '/path/to/the/uploads'
 ALLOWED_EXTENSIONS = { 'png', 'jpg', 'jpeg'}
 
-db = sqlite3.connect('../webCrawl/site_crawl.db')
-cursor = db.cursor()
+
 
 CATEGORIES = ["bags", "bedsheets", "bottles", "cups", "jars",
 	      "mugs", "paper"]
@@ -24,7 +23,9 @@ def prepare(file):
 
 
 def get_options(item):
-    query = "select * from indexes where Item = %s"%item
+    db = sqlite3.connect('../webCrawl/site_crawl.db')
+    cursor = db.cursor()
+    query = "select * from indexes where Item = '%s'"%item
 
     cursor.execute(query) 
     data = cursor.fetchall()

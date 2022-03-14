@@ -39,7 +39,7 @@ export default function Home() {
               <Divider />
               <Card.Footer>
                 <Row justify="flex-end">
-                  <form>
+                  <form onSubmit={onSubmitHandler}>
                   <output id="list"></output><input id="files" multiple name="files[]" type="file" accept="image/*" ref={fileInput}  />
                   <Button type="submit" size="m"   onClick={onSubmitHandler}
 >Submit</Button>

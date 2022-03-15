@@ -54,10 +54,9 @@ def extract_links(soup):
 def insert_data(extracted_data):
     """Insert the crawled data into the database"""
     #print(title,"\n", description,"\n", contents,"\n",no_of_links,"\n", deduped_links)
-    print(extracted_data)
     for data in extracted_data:
-        url = str(extracted_data[data][0])
-        desc = str(extracted_data[data][1] if len(
+        url = str(extracted_data[data][0][0])
+        desc = str(extracted_data[data][1][1] if len(
             extracted_data[data]) > 1 else '')
         item = data
         cursor.execute("INSERT INTO " + db_name +

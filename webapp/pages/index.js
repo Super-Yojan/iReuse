@@ -1,7 +1,6 @@
 import { Button } from '@nextui-org/react';
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import About from './about'
 
 const phrases = ["To save the Earth", "Avoid Global Warming", "To Reduce Waste"]
 
@@ -18,7 +17,7 @@ export default function Home() {
         <iframe title='Tons of waste dumped' font-size='40' src='https://www.theworldcounts.com/embed/challenges/104?background_color=white&color=black&font_family=%22Helvetica+Neue%22%2C+Arial%2C+sans-serif&font_size=14'></iframe>
       </div>
       <div className={styles.button_grid}>
-        <a href="/about">
+        <a href="/upload">
           <Button className={styles.button} id='uploadredirect' shadow type="primary" size="xl">Upload Your Image!</Button>
         </a>
       </div>

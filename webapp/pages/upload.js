@@ -3,16 +3,25 @@ import { Card, Grid, Divider, Row } from '@nextui-org/react';
 import Head from 'next/head'
 import styles from '../styles/About.module.css';
 import React, { useState } from 'react';
+import axios from 'axios';
 
 export default function Home() {
-  let fileInput = React.createRef();
-  const onSubmitHandler = (e) => {
+   const [options, setOptions] = useState();
+   const fileInput = React.useRef();
+   const onSubmitHandler = async (e) => {
+     e.preventDefault();
     const formData = new FormData();
     formData.append('file', fileInput.current.files[0]);
-    fetch('http://localhost:5000/uploadfile', {
-    method: 'POST',
-    body: formData
-    }).then(resp => console.log(resp)).catch(e=> console.log('err'));
+    await axios.post('http://localhost:5000/uploadfile', formData,{ 
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+    }).then(resp => {console.log(typeof resp.data);
+      setOptions(resp.data['options']);
+      console.log(options);
+    }).catch(error => {console.log(error)})
+
+     
 
   }
 
@@ -39,10 +48,9 @@ export default function Home() {
               <Divider />
               <Card.Footer>
                 <Row justify="flex-end">
-                  <form onSubmit={onSubmitHandler}>
-                  <output id="list"></output><input id="files" multiple name="files[]" type="file" accept="image/*" ref={fileInput}  />
-                  <Button type="submit" size="m"   onClick={onSubmitHandler}
->Submit</Button>
+                  <form  onSubmit={onSubmitHandler}>
+                  <output id="list"></output><input id="files" name="file" type="file" accept="image/*" ref={fileInput}   />
+                    <Button type="submit" size="m">Submit</Button>
                   </form>
                 </Row>
               </Card.Footer>
@@ -50,5 +58,10 @@ export default function Home() {
           </Grid>
         </Grid.Container>
       </Container>
+      <Container>
+        {
+          options?options.map(x=>(<Card><CardText>{x.desc}</CardText><Card.Footer>{x.url}</Card.Footer></Card>)): ''
+        }
+     </Container>
     </div>)
 }

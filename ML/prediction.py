@@ -5,14 +5,14 @@ from flask_cors import cross_origin, CORS
 import sqlite3
 
 app = Flask(__name__)
-CORS(app)
-UPLOAD_FOLDER = '/path/to/the/uploads'
+CORS(app, resources={"*": {"origins": "*"}})
+
 ALLOWED_EXTENSIONS = { 'png', 'jpg', 'jpeg'}
 
 
 
-CATEGORIES = ["bags", "bedsheets", "bottles", "cups", "jars",
-	      "mugs", "paper"]
+CATEGORIES = ["bag", "bedsheet", "bottle", "cup", "jar",
+	      "mug", "paper"]
 
 
 def prepare(file):
@@ -23,17 +23,19 @@ def prepare(file):
 
 
 def get_options(item):
+
+    list_of_options = []
     db = sqlite3.connect('../webCrawl/site_crawl.db')
     cursor = db.cursor()
     query = "select * from indexes where Item = '%s'"%item
-
     cursor.execute(query) 
     data = cursor.fetchall()
     for i in data:
         print(i)
+        list_of_options.append({'url':i[1],'desc':i[2]})
+    return list_of_options
 
 @app.route("/uploadfile", methods=["POST"])
-@cross_origin()
 def create_upload_file():
     file = request.files['file']
     file.save(file.filename)
@@ -42,9 +44,8 @@ def create_upload_file():
     prediction = model.predict(prepare(image))
     prediction = list(prediction[0])
     ret = CATEGORIES[prediction.index(max(prediction))]
-    get_options(ret)
-    print(ret)
-    return {"prediction" : ret}
+    stuffs = get_options(ret)
+    return {"options" : stuffs}
 
 
 

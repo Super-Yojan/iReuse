@@ -27,6 +27,7 @@ cursor = db.cursor()
 # get the URL to crawl
 url = "https://bestlifeonline.com/easy-diy-home-projects/"
 # work: https://diyjoy.com/easy-diy-projects/
+url = "https://www.boredpanda.com/creative-diy-project-ideas/"
 
 
 db_name = "indexes"

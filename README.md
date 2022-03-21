@@ -18,3 +18,5 @@
 
 * We have places like ebay and facebook marketplace to sell old stuffs, but this app
 is more focused on allowing you to reuse, and collab with others.
+
+https://github.com/Super-Yojan/iReuse/blob/e9776e45efde4d94fd6d6fcf05ffb5f3ba1ec050/notes/Peek%202022-03-21%2017-17.mp4
